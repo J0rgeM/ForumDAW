@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UpdatePost match snapshot 1`] = `
+<div>
+  <div>
+    <nav
+      class="navbar navbar-expand-lg navbar-dark bg-dark"
+    >
+      <div
+        class="container-fluid"
+      >
+        <a
+          class="navbar-brand"
+          href="/"
+        >
+           BlogGIF
+        </a>
+        <button
+          aria-controls="navbarNavDropdown"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          class="navbar-toggler"
+          data-bs-target="#navbarNavDropdown"
+          data-bs-toggle="collapse"
+          type="button"
+        >
+          <span
+            class="navbar-toggler-icon"
+          />
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbarNavDropdown"
+        >
+          <ul
+            class="navbar-nav"
+          >
+            <li
+              class="nav-item"
+            >
+              <a
+                aria-current="page"
+                class="nav-link active rounded-3"
+                href="/addPost"
+              >
+                Add Post
+              </a>
+            </li>
+            <li
+              class="nav-item"
+            >
+              <a
+                aria-current="page"
+                class="nav-link active rounded-3"
+                href="/"
+              >
+                List Posts
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div
+      class="footer text-center fixed-bottom text-white bg-dark"
+    >
+      <div
+        class="container-fluid"
+      >
+        <div
+          class="row"
+        >
+          <p
+            class="text-center"
+          >
+            © 2023 DAW
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

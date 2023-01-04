@@ -50,7 +50,13 @@ app.post("/addPost", async (inRequest: Request ,inResponse: Response ) => {
 app.put("/updatePost/:number", async (inRequest: Request ,inResponse: Response ) => {
     try {
         const microposts: Posts.Microposts = new Posts.Microposts();
-        await microposts.updatePost(inRequest.body.post, inRequest.body.text);
+        let post : IPost = {
+            number: inRequest.body.number,
+            author: inRequest.body.author,
+            body: inRequest.body.body
+        }
+        console.log(inRequest.body)
+        await microposts.updatePost(post, inRequest.body.text);
         inResponse.send("updated");
     } catch (inError) {
         inResponse.send("error");
@@ -60,7 +66,7 @@ app.put("/updatePost/:number", async (inRequest: Request ,inResponse: Response )
 app.delete("/deletePost/:number", async (inRequest: Request ,inResponse: Response ) => {
     try {
         const microposts: Posts.Microposts = new Posts.Microposts();
-        await microposts.deletePost(inRequest.body);
+        await microposts.deletePost(parseInt(inRequest.params.number));
         inResponse.send("deleted");
     } catch (inError) {
         inResponse.send("error");

@@ -77,20 +77,26 @@ app.post("/addPost", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0
         inResponse.send("error");
     }
 }));
-app.put("/updatePost", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0, function* () {
+app.put("/updatePost/:number", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const microposts = new Posts.Microposts();
-        yield microposts.updatePost(inRequest.body.post, inRequest.body.text);
+        let post = {
+            number: inRequest.body.number,
+            author: inRequest.body.author,
+            body: inRequest.body.body
+        };
+        console.log(inRequest.body);
+        yield microposts.updatePost(post, inRequest.body.text);
         inResponse.send("updated");
     }
     catch (inError) {
         inResponse.send("error");
     }
 }));
-app.delete("/deletePost", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0, function* () {
+app.delete("/deletePost/:number", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const microposts = new Posts.Microposts();
-        yield microposts.deletePost(inRequest.body);
+        yield microposts.deletePost(parseInt(inRequest.params.number));
         inResponse.send("deleted");
     }
     catch (inError) {

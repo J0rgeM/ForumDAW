@@ -47,7 +47,7 @@ export class Microposts {
 
     public updatePost(inPost: IPost, inText: string): Promise<void> {
         return new Promise((inResolve, inReject) => {
-            this.db.update({_id: inPost.number}, {_id: inPost.number, author: inPost.author, body: inText} , {},
+            this.db.update({number: inPost.number}, {number: inPost.number, author: inPost.author, body: inText} , {},
                 (inError: Error | null) => {
                     if (inError) {
                         console.log("ola")
@@ -60,9 +60,9 @@ export class Microposts {
         });
     }
 
-    public deletePost(inPost: IPost): Promise<void> {
+    public deletePost(nr: number): Promise<void> {
         return new Promise((inResolve, inReject) => {
-            this.db.remove({_id: inPost.number},{},
+            this.db.remove({number: nr},{},
                 (inError: Error | null) => {
                     if (inError) {
                         inReject(inError);

@@ -59,7 +59,7 @@ class Microposts {
     }
     updatePost(inPost, inText) {
         return new Promise((inResolve, inReject) => {
-            this.db.update({ _id: inPost.number }, { _id: inPost.number, author: inPost.author, body: inText }, {}, (inError) => {
+            this.db.update({ number: inPost.number }, { number: inPost.number, author: inPost.author, body: inText }, {}, (inError) => {
                 if (inError) {
                     console.log("ola");
                     inReject(inError);
@@ -70,9 +70,9 @@ class Microposts {
             });
         });
     }
-    deletePost(inPost) {
+    deletePost(nr) {
         return new Promise((inResolve, inReject) => {
-            this.db.remove({ _id: inPost.number }, {}, (inError) => {
+            this.db.remove({ number: nr }, {}, (inError) => {
                 if (inError) {
                     inReject(inError);
                 }

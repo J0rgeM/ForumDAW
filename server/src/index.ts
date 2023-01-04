@@ -3,7 +3,6 @@ import express, {Express, NextFunction, Request, Response} from "express";
 import path from "path";
 import {IPost} from "./posts";
 import * as Posts from "./posts";
-import cors from "cors";
 
 const app : Express = express();
 
@@ -13,7 +12,6 @@ app.use(express.json());
 //serve static files
 app.use("/", express.static(path.join (__dirname, "../../client/dist")));
 
-//app.use(cors({ origin: "http://localhost:8080", optionsSuccessStatus: 200 }));
 app.use(function(inRequest: Request, inResponse: Response, inNext : NextFunction ) {
     inResponse.header("Access-Control-Allow-Origin", "*");
     inResponse.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
@@ -21,9 +19,10 @@ app.use(function(inRequest: Request, inResponse: Response, inNext : NextFunction
     inNext();
 });
 
+const microposts: Posts.Microposts = new Posts.Microposts();
+
 app.get("/getPost", async (inRequest: Request ,inResponse: Response ) => {
     try {
-        const microposts: Posts.Microposts = new Posts.Microposts();
         const post: IPost[] = await microposts.getPost();
         inResponse.json(post);
     } catch (inError) {
@@ -33,7 +32,6 @@ app.get("/getPost", async (inRequest: Request ,inResponse: Response ) => {
 
 app.post("/addPost", async (inRequest: Request ,inResponse: Response ) => {
     try {
-        const microposts: Posts.Microposts = new Posts.Microposts();
         // foi criada esta variável para passar o que se recebe para argumento para IPost
         const r : IPost = {
             number: (await microposts.getPost()).length + 1,
@@ -49,7 +47,6 @@ app.post("/addPost", async (inRequest: Request ,inResponse: Response ) => {
 
 app.put("/updatePost/:number", async (inRequest: Request ,inResponse: Response ) => {
     try {
-        const microposts: Posts.Microposts = new Posts.Microposts();
         let post : IPost = {
             number: inRequest.body.number,
             author: inRequest.body.author,
@@ -65,7 +62,6 @@ app.put("/updatePost/:number", async (inRequest: Request ,inResponse: Response )
 
 app.delete("/deletePost/:number", async (inRequest: Request ,inResponse: Response ) => {
     try {
-        const microposts: Posts.Microposts = new Posts.Microposts();
         await microposts.deletePost(parseInt(inRequest.params.number));
         inResponse.send("deleted");
     } catch (inError) {

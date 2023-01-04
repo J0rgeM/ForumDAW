@@ -13,8 +13,7 @@ function Posts(){
     const getPost = async () => {
         try {
             const response: AxiosResponse = await axios.get<IPost[]>("http://localhost:8080/getPost");
-            response.data.sort((a, b) => a - b)
-            console.log(response.data)
+            response.data.sort((n1, n2) => n1.number - n2.number)
             setPosts(response.data)
             console.log(response.data)
         }
@@ -62,6 +61,13 @@ function Posts(){
     return(
     <div>
         <Navbar/>
+        <div className="">
+            <button type="button" className="btn btn-dark">Add Post</button>
+            <button type="button" className="btn btn-dark">Update Post</button>
+            <button type="button" className="btn btn-dark">Delete Post</button>
+        </div>
+
+
         { posts.map(post =>(
                     <div key={post.number} className="container shadow p-3 mb-5 bg-white rounded">
                         <div className="col">

@@ -51,9 +51,10 @@ app.use(function (inRequest, inResponse, inNext) {
     inResponse.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     inNext();
 });
+const microposts = new Posts.Microposts();
 app.get("/getPost", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const microposts = new Posts.Microposts();
+        //const microposts: Posts.Microposts = new Posts.Microposts();
         const post = yield microposts.getPost();
         inResponse.json(post);
     }
@@ -63,7 +64,6 @@ app.get("/getPost", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0,
 }));
 app.post("/addPost", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const microposts = new Posts.Microposts();
         // foi criada esta variável para passar o que se recebe para argumento para IPost
         const r = {
             number: (yield microposts.getPost()).length + 1,
@@ -79,7 +79,7 @@ app.post("/addPost", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0
 }));
 app.put("/updatePost/:number", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const microposts = new Posts.Microposts();
+        //const microposts: Posts.Microposts = new Posts.Microposts();
         let post = {
             number: inRequest.body.number,
             author: inRequest.body.author,
@@ -95,7 +95,7 @@ app.put("/updatePost/:number", (inRequest, inResponse) => __awaiter(void 0, void
 }));
 app.delete("/deletePost/:number", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const microposts = new Posts.Microposts();
+        //const microposts: Posts.Microposts = new Posts.Microposts();
         yield microposts.deletePost(parseInt(inRequest.params.number));
         inResponse.send("deleted");
     }

@@ -61,7 +61,6 @@ class Microposts {
         return new Promise((inResolve, inReject) => {
             this.db.update({ number: inPost.number }, { number: inPost.number, author: inPost.author, body: inText }, {}, (inError) => {
                 if (inError) {
-                    console.log("ola");
                     inReject(inError);
                 }
                 else {

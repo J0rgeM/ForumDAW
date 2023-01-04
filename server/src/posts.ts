@@ -50,7 +50,6 @@ export class Microposts {
             this.db.update({number: inPost.number}, {number: inPost.number, author: inPost.author, body: inText} , {},
                 (inError: Error | null) => {
                     if (inError) {
-                        console.log("ola")
                         inReject(inError);
                     } else {
                         inResolve();

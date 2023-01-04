@@ -93,6 +93,7 @@ app.put("/updatePost/:number", (inRequest, inResponse) => __awaiter(void 0, void
             body: inRequest.body.body
         };
         console.log(inRequest.body);
+        console.log("hello: " + post.author);
         yield microposts.updatePost(post, inRequest.body.text);
         inResponse.send("updated");
     }

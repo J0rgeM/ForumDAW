@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 // Library imports.
-import axios, { AxiosResponse } from "axios";
+//const axios = require('axios').default
+//import axios, { AxiosResponse } from "axios";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 import { IPost } from "../../server/src/posts";
 import { Link } from "react-router-dom";
+import axios,{AxiosResponse} from "axios";
 
 function Posts() {
     const [posts, setPosts] = useState<IPost[]>([]);

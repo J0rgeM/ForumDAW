@@ -3,7 +3,7 @@
     "esModuleInterop": true,
     "sourceMap": true,
     "noImplicitAny": false,
-    "module": "esnext",
+    "module": "commonjs",
     "target": "es6",
     "lib": [
       "es2015",

@@ -5,7 +5,6 @@ import Navbar from "../../client/src/components/Navbar";
 import Footer from "../../client/src/components/Footer";
 
 import { IPost } from "../../server/src/posts";
-import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function Posts() {
@@ -16,7 +15,7 @@ function Posts() {
             const response: AxiosResponse = await axios.get<IPost[]>(
                 "http://localhost:8080/"
             );
-            response.data.sort((n1, n2) => n1.number - n2.number);
+            response.data.sort((n1: IPost, n2: IPost) => n1.number - n2.number);
             setPosts(response.data);
             console.log(response.data);
         } catch (error) {
@@ -27,13 +26,13 @@ function Posts() {
         getPost();
     }, []);
 
-    const deletePost = async () => {
+    const deletePost = async (number) => {
         try {
             const response: AxiosResponse = await axios.delete(
-                "http://localhost:8080/:number",
-                {}
+                "http://localhost:8080/".concat(number)
             );
             console.log(response);
+            window.location.reload();
         } catch (error) {
             console.error(error);
         }
@@ -60,7 +59,8 @@ function Posts() {
                         <div className="card">
                             <div className="row g-0">
                                 <div className="col-md-4">
-                                    <img src="https://media.giphy.com/media/sQuHLqjWwRXGvrjkg0/giphy.gif"
+                                    <img
+                                        src="https://media.giphy.com/media/sQuHLqjWwRXGvrjkg0/giphy.gif"
                                         width="100%"
                                         height={250}
                                         alt="meme"
@@ -76,15 +76,18 @@ function Posts() {
                                         </p>
                                         <p className="card-text">{post.body}</p>
                                         <div className="float-end">
-                                            <Link to="/updatePost">
+                                            <Link to={"/updatePost/" + post.number}>
                                                 <button className="m-2 p-2 btn btn-dark">
                                                     Update Post
                                                 </button>
                                             </Link>
                                             <button
                                                 type="submit"
-                                                onClick={deletePost}
-                                                className="m-2 p-2 btn btn-outline-dark">
+                                                onClick={() =>
+                                                    deletePost(post.number)
+                                                }
+                                                className="m-2 p-2 btn btn-outline-dark"
+                                            >
                                                 Delete Post
                                             </button>
                                         </div>

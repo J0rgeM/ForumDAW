@@ -53,7 +53,7 @@ app.use(function (inRequest, inResponse, inNext) {
 const microposts = new Posts.Microposts();
 app.get("/", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const post = yield microposts.getPost();
+        const post = yield microposts.getPosts();
         inResponse.json(post);
     }
     catch (inError) {
@@ -64,11 +64,21 @@ app.post("/addPost", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0
     try {
         // foi criada esta variável para passar o que se recebe para argumento para IPost
         const r = {
-            number: (yield microposts.getPost()).length + 1,
+            number: (yield microposts.getPosts()).length + 1,
             author: inRequest.body.author,
             body: inRequest.body.body,
         };
         const post = yield microposts.addPost(r);
+        inResponse.json(post);
+    }
+    catch (inError) {
+        inResponse.send("error");
+    }
+}));
+app.get("/updatePost/:number", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const post = yield microposts.getPost(Number(inRequest.params.number));
+        console.log(post);
         inResponse.json(post);
     }
     catch (inError) {

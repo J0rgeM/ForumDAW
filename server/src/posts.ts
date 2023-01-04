@@ -17,7 +17,21 @@ export class Microposts {
         });
     }
 
-    public getPost(): Promise<IPost[]> {
+    public getPost(postNumber: number): Promise<IPost> {
+        return new Promise((inResolve, inReject) => {
+            this.db.find({number: postNumber},
+                (inError: Error | null, inNewDoc: IPost) => {
+                    if (inError) {
+                        inReject(inError);
+                    } else {
+                        inResolve(inNewDoc);
+                    }
+                }
+            );
+        });
+    }
+
+    public getPosts(): Promise<IPost[]> {
         return new Promise((inResolve, inReject) => {
             this.db.find({},
                 (inError: Error | null, inNewDoc: IPost[]) => {

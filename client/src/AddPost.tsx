@@ -24,6 +24,7 @@ function AddPost() {
         } catch (error) {
             console.error(error);
         }
+        window.location.href = "http://localhost:3000"
     };
 
     return (

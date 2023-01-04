@@ -2,11 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 // App imports.
-import BaseLayout from "./components/BaseLayout";
-
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Posts from "./Posts";
 import AddPost from './AddPost';
+import UpdatePost from './UpdatePost';
 
 
 const root = ReactDOM.createRoot(
@@ -18,7 +17,7 @@ root.render(
             <Routes>
                 <Route path="/" element={<Posts/>} />
                 <Route path="/addPost" element={<AddPost/>} />
-                <Route path="/updatePost" element={<Posts/>} />
+                <Route path="/updatePost/:number" element={<UpdatePost/>} />
             </Routes>
         </Router>
     </React.StrictMode>

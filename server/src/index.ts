@@ -23,7 +23,7 @@ const microposts: Posts.Microposts = new Posts.Microposts();
 
 app.get("/", async (inRequest: Request ,inResponse: Response ) => {
     try {
-        const post: IPost[] = await microposts.getPost();
+        const post: IPost[] = await microposts.getPosts();
         inResponse.json(post);
     } catch (inError) {
         inResponse.send("error") ;
@@ -34,11 +34,21 @@ app.post("/addPost", async (inRequest: Request ,inResponse: Response ) => {
     try {
         // foi criada esta variável para passar o que se recebe para argumento para IPost
         const r : IPost = {
-            number: (await microposts.getPost()).length + 1,
+            number: (await microposts.getPosts()).length + 1,
             author: inRequest.body.author,
             body: inRequest.body.body,
         }
         const post: IPost = await microposts.addPost(r);
+        inResponse.json(post);
+    } catch (inError) {
+        inResponse.send("error") ;
+    }
+});
+
+app.get("/updatePost/:number", async (inRequest: Request ,inResponse: Response ) => {
+    try {
+        const post: IPost = await microposts.getPost(Number(inRequest.params.number));
+        console.log(post);
         inResponse.json(post);
     } catch (inError) {
         inResponse.send("error") ;

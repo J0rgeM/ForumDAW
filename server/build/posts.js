@@ -33,7 +33,19 @@ class Microposts {
             autoload: true
         });
     }
-    getPost() {
+    getPost(postNumber) {
+        return new Promise((inResolve, inReject) => {
+            this.db.find({ number: postNumber }, (inError, inNewDoc) => {
+                if (inError) {
+                    inReject(inError);
+                }
+                else {
+                    inResolve(inNewDoc);
+                }
+            });
+        });
+    }
+    getPosts() {
         return new Promise((inResolve, inReject) => {
             this.db.find({}, (inError, inNewDoc) => {
                 if (inError) {

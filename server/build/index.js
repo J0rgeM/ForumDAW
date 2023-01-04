@@ -51,7 +51,7 @@ app.use(function (inRequest, inResponse, inNext) {
     inNext();
 });
 const microposts = new Posts.Microposts();
-app.get("/getPost", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0, function* () {
+app.get("/", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const post = yield microposts.getPost();
         inResponse.json(post);
@@ -90,7 +90,7 @@ app.put("/updatePost/:number", (inRequest, inResponse) => __awaiter(void 0, void
         inResponse.send("error");
     }
 }));
-app.delete("/deletePost/:number", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0, function* () {
+app.delete("/:number", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield microposts.deletePost(parseInt(inRequest.params.number));
         inResponse.send("deleted");

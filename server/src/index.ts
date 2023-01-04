@@ -21,7 +21,7 @@ app.use(function(inRequest: Request, inResponse: Response, inNext : NextFunction
 
 const microposts: Posts.Microposts = new Posts.Microposts();
 
-app.get("/getPost", async (inRequest: Request ,inResponse: Response ) => {
+app.get("/", async (inRequest: Request ,inResponse: Response ) => {
     try {
         const post: IPost[] = await microposts.getPost();
         inResponse.json(post);
@@ -60,7 +60,7 @@ app.put("/updatePost/:number", async (inRequest: Request ,inResponse: Response )
     }
 });
 
-app.delete("/deletePost/:number", async (inRequest: Request ,inResponse: Response ) => {
+app.delete("/:number", async (inRequest: Request ,inResponse: Response ) => {
     try {
         await microposts.deletePost(parseInt(inRequest.params.number));
         inResponse.send("deleted");

@@ -16,11 +16,10 @@ function Navbar() {
                 <div className="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <Link to="/" className="nav-link active rounded-3" aria-current="page">Home</Link>
+                            <Link to="/addPost" className="nav-link active rounded-3" aria-current="page" >Add Post</Link>
                         </li>
-
                         <li className="nav-item">
-                            <Link to="/getPost" className="nav-link active rounded-3" aria-current="page" >List Posts</Link>
+                            <Link to="/" className="nav-link active rounded-3" aria-current="page" >List Posts</Link>
                         </li>
                     </ul>
                 </div>

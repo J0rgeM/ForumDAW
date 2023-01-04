@@ -16,11 +16,9 @@ root.render(
     <React.StrictMode>
         <Router>
             <Routes>
-                <Route path="/" element={<BaseLayout/>} />
-                <Route path="/getPost" element={<Posts/>} />
+                <Route path="/" element={<Posts/>} />
                 <Route path="/addPost" element={<AddPost/>} />
                 <Route path="/updatePost" element={<Posts/>} />
-                <Route path="/deletePost" element={<Posts/>} />
             </Routes>
         </Router>
     </React.StrictMode>

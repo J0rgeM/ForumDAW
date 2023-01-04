@@ -14,7 +14,7 @@ function Posts() {
     const getPost = async () => {
         try {
             const response: AxiosResponse = await axios.get<IPost[]>(
-                "http://localhost:8080/getPost"
+                "http://localhost:8080/"
             );
             response.data.sort((n1, n2) => n1.number - n2.number);
             setPosts(response.data);
@@ -32,7 +32,7 @@ function Posts() {
         try {
             console.log(post.author);
             const response: AxiosResponse = await axios.put(
-                "http://localhost:8080/updatePost",
+                "http://localhost:8080/updatePost/:number",
                 post
             );
             console.log(response);
@@ -40,11 +40,11 @@ function Posts() {
             console.error(error);
         }
     };
-    // eslint-disable-next-line
+
     const deletePost = async () => {
         try {
             const response: AxiosResponse = await axios.delete(
-                "http://localhost:8080/deletePost",
+                "http://localhost:8080/:number",
                 {}
             );
             console.log(response);
@@ -59,7 +59,7 @@ function Posts() {
             <div className="container text-center">
                 <div className="margin-0 margin-top-0 btn-group" role="group">
                     <Link to="/addPost">
-                        <button className="m-2 p-3 btn btn-dark">
+                        <button className="m-2 p-2 btn btn-dark">
                             Add Post
                         </button>
                     </Link>
@@ -74,8 +74,7 @@ function Posts() {
                         <div className="card">
                             <div className="row g-0">
                                 <div className="col-md-4">
-                                    <img
-                                        src="https://media.giphy.com/media/sQuHLqjWwRXGvrjkg0/giphy.gif"
+                                    <img src="https://media.giphy.com/media/sQuHLqjWwRXGvrjkg0/giphy.gif"
                                         width="100%"
                                         height={250}
                                         alt="meme"
@@ -92,15 +91,16 @@ function Posts() {
                                         <p className="card-text">{post.body}</p>
                                         <div className="float-end">
                                             <Link to="/updatePost">
-                                                <button className="m-2 p-3 btn btn-dark">
+                                                <button className="m-2 p-2 btn btn-dark">
                                                     Update Post
                                                 </button>
                                             </Link>
-                                            <Link to="/deletePost">
-                                                <button className="p-3 btn btn-dark">
-                                                    Delete Post
-                                                </button>
-                                            </Link>
+                                            <button
+                                                type="submit"
+                                                onClick={deletePost}
+                                                className="m-2 p-2 btn btn-outline-dark">
+                                                Delete Post
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -109,7 +109,6 @@ function Posts() {
                     </div>
                 </div>
             ))}
-            ;
             <Footer />
         </div>
     );

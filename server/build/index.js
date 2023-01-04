@@ -44,7 +44,6 @@ const app = (0, express_1.default)();
 app.use(express_1.default.json());
 //serve static files
 app.use("/", express_1.default.static(path_1.default.join(__dirname, "../../client/dist")));
-//app.use(cors({ origin: "http://localhost:8080", optionsSuccessStatus: 200 }));
 app.use(function (inRequest, inResponse, inNext) {
     inResponse.header("Access-Control-Allow-Origin", "*");
     inResponse.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
@@ -54,7 +53,6 @@ app.use(function (inRequest, inResponse, inNext) {
 const microposts = new Posts.Microposts();
 app.get("/getPost", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        //const microposts: Posts.Microposts = new Posts.Microposts();
         const post = yield microposts.getPost();
         inResponse.json(post);
     }
@@ -79,7 +77,6 @@ app.post("/addPost", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0
 }));
 app.put("/updatePost/:number", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        //const microposts: Posts.Microposts = new Posts.Microposts();
         let post = {
             number: inRequest.body.number,
             author: inRequest.body.author,
@@ -95,7 +92,6 @@ app.put("/updatePost/:number", (inRequest, inResponse) => __awaiter(void 0, void
 }));
 app.delete("/deletePost/:number", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        //const microposts: Posts.Microposts = new Posts.Microposts();
         yield microposts.deletePost(parseInt(inRequest.params.number));
         inResponse.send("deleted");
     }

@@ -22,8 +22,6 @@ function Navbar() {
                         <li className="nav-item">
                             <Link to="/getPost" className="nav-link active rounded-3" aria-current="page" >List Posts</Link>
                         </li>
-
-
                     </ul>
                 </div>
             </div>

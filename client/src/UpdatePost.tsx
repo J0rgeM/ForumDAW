@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 // Library imports.
 import axios, { AxiosResponse } from "axios";
-import Navbar from "../../client/src/components/Navbar";
-import Footer from "../../client/src/components/Footer";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+
 import { Simulate } from "react-dom/test-utils";
 import error = Simulate.error;
 import { IPost } from "../../server/src/posts";

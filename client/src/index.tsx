@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <React.StrictMode>
-        <Router>
+        <Router>{/** Provider*/}
             <Routes>
                 <Route path="/" element={<Posts/>} />
                 <Route path="/addPost" element={<AddPost/>} />

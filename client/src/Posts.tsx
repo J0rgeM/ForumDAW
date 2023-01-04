@@ -27,20 +27,6 @@ function Posts() {
         getPost();
     }, []);
 
-    // eslint-disable-next-line
-    const updatePost = async (post: IPost) => {
-        try {
-            console.log(post.author);
-            const response: AxiosResponse = await axios.put(
-                "http://localhost:8080/updatePost/:number",
-                post
-            );
-            console.log(response);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
     const deletePost = async () => {
         try {
             const response: AxiosResponse = await axios.delete(

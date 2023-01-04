@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import axios, { AxiosResponse } from "axios";
 import Navbar from "../../client/src/components/Navbar";
 import Footer from "../../client/src/components/Footer";
+import {Simulate} from "react-dom/test-utils";
+import error = Simulate.error;
 
 function UpdatePost() {
     const [author, setAuthor] = useState("");
@@ -19,6 +21,24 @@ function UpdatePost() {
                         "Content-type": "text/plain",
                     },
                 }
+            );
+            console.log(response);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    // eslint-disable-next-line
+    const updatePost = async (post: IPost) => {
+        try {
+            console.log(post.author);
+            const response: AxiosResponse = await axios.put(
+                "http://localhost:8080/updatePost/:number",
+                {
+                    author: JSON.stringify(author),
+                    body: JSON.stringify(body),
+                    headers: {
+                        "Content-type": "text/plain",
+                    }, post
             );
             console.log(response);
         } catch (error) {

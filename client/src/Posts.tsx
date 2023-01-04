@@ -5,6 +5,8 @@ import Navbar from "../../client/src/components/Navbar";
 import Footer from "../../client/src/components/Footer";
 
 import {IPost} from  "../../server/src/posts";
+import {Button} from "react-bootstrap";
+
 
 function Posts(){
 
@@ -25,11 +27,10 @@ function Posts(){
         getPost();
     }, []);
 
-    // eslint-disable-next-line
-    const addPost = async (post: IPost) => {
+
+    const addPost = async () => {
         try {
-            console.log(post.author)
-            const response: AxiosResponse = await axios.post("http://localhost:8080/addPost", post);
+            const response: AxiosResponse = await axios.post("http://localhost:8080/addPost");
             console.log(response)
         }
         catch (error) {
@@ -61,12 +62,24 @@ function Posts(){
     return(
     <div>
         <Navbar/>
-        <div className="">
-            <button type="button" className="btn btn-dark">Add Post</button>
-            <button type="button" className="btn btn-dark">Update Post</button>
-            <button type="button" className="btn btn-dark">Delete Post</button>
-        </div>
+        <div className="container text-center">
+            <div className="margin-0 margin-top-0 btn-group" role="group">
+                <Button type="button" onClick={() => {
+                    alert("Add");
+                    //addPost();
+                }} className="p-3 btn btn-dark">Add Post</Button>
 
+                <button type="button" onClick={() => {
+                    alert("Update");
+                    //addPost();
+                }} className="p-3 btn btn-dark">Update Post</button>
+
+                <button type="button" onClick={() => {
+                    alert("Delete");
+                    //addPost();
+                }} className="p-3 btn btn-dark">Delete Post</button>
+            </div>
+        </div>
 
         { posts.map(post =>(
                     <div key={post.number} className="container shadow p-3 mb-5 bg-white rounded">

@@ -3,7 +3,7 @@ import Nedb from "nedb";
 const Datastore = require("nedb");
 
 export interface IPost {
-    number: number;
+    nmb: number;
     author: string,
     body: string,
 }
@@ -19,7 +19,7 @@ export class Microposts {
 
     public getPost(postNumber: number): Promise<IPost> {
         return new Promise((inResolve, inReject) => {
-            this.db.find({number: postNumber},
+            this.db.find({nmb: postNumber},
                 (inError: Error | null, inNewDoc: IPost) => {
                     if (inError) {
                         inReject(inError);
@@ -59,13 +59,14 @@ export class Microposts {
         });
     }
 
-    public updatePost(inPost: IPost, inText: string): Promise<void> {
+    public updatePost(inPost: IPost): Promise<void> {
         return new Promise((inResolve, inReject) => {
-            this.db.update({number: inPost.number}, {number: inPost.number, author: inPost.author, body: inText} , {},
+            this.db.update({nmb: inPost.nmb}, {nmb: inPost.nmb, author: inPost.author, body: inPost.body} , {},
                 (inError: Error | null) => {
                     if (inError) {
                         inReject(inError);
                     } else {
+                        console.log("conseguimos");
                         inResolve();
                     }
                 }
@@ -75,7 +76,7 @@ export class Microposts {
 
     public deletePost(nr: number): Promise<void> {
         return new Promise((inResolve, inReject) => {
-            this.db.remove({number: nr},{},
+            this.db.remove({nmb: nr},{},
                 (inError: Error | null) => {
                     if (inError) {
                         inReject(inError);

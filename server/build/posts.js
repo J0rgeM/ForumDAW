@@ -35,7 +35,7 @@ class Microposts {
     }
     getPost(postNumber) {
         return new Promise((inResolve, inReject) => {
-            this.db.find({ number: postNumber }, (inError, inNewDoc) => {
+            this.db.find({ nmb: postNumber }, (inError, inNewDoc) => {
                 if (inError) {
                     inReject(inError);
                 }
@@ -69,13 +69,14 @@ class Microposts {
             });
         });
     }
-    updatePost(inPost, inText) {
+    updatePost(inPost) {
         return new Promise((inResolve, inReject) => {
-            this.db.update({ number: inPost.number }, { number: inPost.number, author: inPost.author, body: inText }, {}, (inError) => {
+            this.db.update({ nmb: inPost.nmb }, { nmb: inPost.nmb, author: inPost.author, body: inPost.body }, {}, (inError) => {
                 if (inError) {
                     inReject(inError);
                 }
                 else {
+                    console.log("conseguimos");
                     inResolve();
                 }
             });
@@ -83,7 +84,7 @@ class Microposts {
     }
     deletePost(nr) {
         return new Promise((inResolve, inReject) => {
-            this.db.remove({ number: nr }, {}, (inError) => {
+            this.db.remove({ nmb: nr }, {}, (inError) => {
                 if (inError) {
                     inReject(inError);
                 }

@@ -15,10 +15,10 @@ function UpdatePost() {
     const [author, setAuthor] = useState("");
     const [body, setBody] = useState("");
 
-    const getPost = async (number) => {
+    const getPost = async (nmb: any) => {
         try {
             const response: AxiosResponse = await axios.get<IPost[]>(
-                "http://localhost:8080/updatePost/".concat(number)
+                "http://localhost:8080/updatePost/" + String(nmb)
             );
             setPost(response.data);
             console.log(response.data);
@@ -28,11 +28,13 @@ function UpdatePost() {
     };
 
     // eslint-disable-next-line
-    const updatePost = async (number) => {
+    const updatePost = async (e, nmb: any) => {
+        e.preventDefault();
         try {
             const response: AxiosResponse = await axios.put(
-                "http://localhost:8080/updatePost/".concat(number),
+                "http://localhost:8080/updatePost/" + String(nmb),
                 {
+                    nmb: nmb,
                     author: JSON.stringify(author),
                     body: JSON.stringify(body),
                     headers: {
@@ -54,33 +56,29 @@ function UpdatePost() {
         <div>
             <Navbar />
             {post.map((post) => (
-                <div key={post.number} className="container text-center">
-                    <form className="shadow p-3 mb-5 bg-white rounded">
+                <div key={post.nmb} className="container text-center">
+                    <form
+                        onSubmit={(e) => updatePost(e, post.nmb)}
+                        className="shadow p-3 mb-5 bg-white rounded"
+                    >
                         <h1 className="mt-2">Post</h1>
                         <div className="mb-3">
-                            <label form="inputTitle" className="form-label">
-                                Message
-                            </label>
                             <input
                                 type="textarea"
                                 className="form-control m-1"
                                 id="inputPost"
-                                placeholder={post.author}
                                 onChange={(e) => setAuthor(e.target.value)}
+                                placeholder={post.author}
                             ></input>
                             <input
                                 type="textarea"
                                 className="form-control m-1"
                                 id="inputPost"
-                                placeholder={post.body}
                                 onChange={(e) => setBody(e.target.value)}
+                                placeholder={post.body}
                             ></input>
                         </div>
-                        <button
-                            type="submit"
-                            onClick={() => updatePost(post.number)}
-                            className="btn btn-dark"
-                        >
+                        <button type="submit" className="btn btn-dark">
                             Submit
                         </button>
                     </form>

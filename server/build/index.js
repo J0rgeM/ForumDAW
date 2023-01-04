@@ -64,7 +64,7 @@ app.post("/addPost", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0
     try {
         // foi criada esta variável para passar o que se recebe para argumento para IPost
         const r = {
-            number: (yield microposts.getPosts()).length + 1,
+            nmb: (yield microposts.getPosts()).length + 1,
             author: inRequest.body.author,
             body: inRequest.body.body,
         };
@@ -87,14 +87,12 @@ app.get("/updatePost/:number", (inRequest, inResponse) => __awaiter(void 0, void
 }));
 app.put("/updatePost/:number", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let post = {
-            number: inRequest.body.number,
-            author: inRequest.body.author,
-            body: inRequest.body.body
+        const post = {
+            nmb: inRequest.body.nmb /* Number(inRequest.params.number) */,
+            body: inRequest.body.body,
+            author: inRequest.body.author
         };
-        console.log(inRequest.body);
-        console.log("hello: " + post.author);
-        yield microposts.updatePost(post, inRequest.body.text);
+        yield microposts.updatePost(post);
         inResponse.send("updated");
     }
     catch (inError) {

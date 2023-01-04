@@ -15,7 +15,7 @@ function Posts() {
             const response: AxiosResponse = await axios.get<IPost[]>(
                 "http://localhost:8080/"
             );
-            response.data.sort((n1: IPost, n2: IPost) => n1.number - n2.number);
+            response.data.sort((n1: IPost, n2: IPost) => n1.nmb - n2.nmb);
             setPosts(response.data);
             console.log(response.data);
         } catch (error) {
@@ -52,7 +52,7 @@ function Posts() {
             </div>
             {posts.map((post) => (
                 <div
-                    key={post.number}
+                    key={post.nmb}
                     className="container shadow p-3 mb-5 bg-white rounded"
                 >
                     <div className="col">
@@ -69,14 +69,14 @@ function Posts() {
                                 <div className="col-md-8">
                                     <div className="card-body">
                                         <p className="card-text">
-                                            number: {post.number}
+                                            number: {post.nmb}
                                         </p>
                                         <p className="card-text">
                                             Author: {post.author}
                                         </p>
                                         <p className="card-text">{post.body}</p>
                                         <div className="float-end">
-                                            <Link to={"/updatePost/" + post.number}>
+                                            <Link to={"/updatePost/" + post.nmb}>
                                                 <button className="m-2 p-2 btn btn-dark">
                                                     Update Post
                                                 </button>
@@ -84,7 +84,7 @@ function Posts() {
                                             <button
                                                 type="submit"
                                                 onClick={() =>
-                                                    deletePost(post.number)
+                                                    deletePost(post.nmb)
                                                 }
                                                 className="m-2 p-2 btn btn-outline-dark"
                                             >

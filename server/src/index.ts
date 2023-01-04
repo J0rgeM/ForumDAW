@@ -34,7 +34,7 @@ app.post("/addPost", async (inRequest: Request ,inResponse: Response ) => {
     try {
         // foi criada esta variável para passar o que se recebe para argumento para IPost
         const r : IPost = {
-            number: (await microposts.getPosts()).length + 1,
+            nmb: (await microposts.getPosts()).length + 1,
             author: inRequest.body.author,
             body: inRequest.body.body,
         }
@@ -57,13 +57,12 @@ app.get("/updatePost/:number", async (inRequest: Request ,inResponse: Response )
 
 app.put("/updatePost/:number", async (inRequest: Request ,inResponse: Response ) => {
     try {
-        let post : IPost = {
-            number: inRequest.body.number,
-            author: inRequest.body.author,
-            body: inRequest.body.body
+        const post : IPost = {
+            nmb: inRequest.body.nmb/* Number(inRequest.params.number) */,
+            body: inRequest.body.body,
+            author: inRequest.body.author
         }
-        console.log(inRequest.body)
-        await microposts.updatePost(post, inRequest.body.text);
+        await microposts.updatePost(post);
         inResponse.send("updated");
     } catch (inError) {
         inResponse.send("error");

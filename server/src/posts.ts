@@ -52,7 +52,7 @@ export class Microposts {
     }
 
     public addPost(inPost: IPost): Promise<IPost> {     // inPost como primeiro argumento
-        return new Promise((inResolve, inReject) => {   // este método passa o objeto adicionaodo para a callback que irºa possuir um campo _id, sendo esse obejto rentornado caller e ao client, de maneira a aparecer no ecrã
+        return new Promise((inResolve, inReject) => {   // este método passa o objeto adicionaodo para a callback que irºa possuir um campo , sendo esse obejto rentornado caller e ao client, de maneira a aparecer no ecrã
             this.db.insert(inPost,
                 (inError: Error | null, inNewDoc: IPost) => {
                     if (inError) {
@@ -65,8 +65,9 @@ export class Microposts {
         });
     }
 
-    public updatePost(inPost: IPost): Promise<void> {
-        return new Promise((inResolve, inReject) => {
+
+    public updatePost(inPost: IPost): Promise<void> {   // inPost como primeiro argumento
+        return new Promise((inResolve, inReject) => {   // este método passa o objeto adicionaodo para a callback que irºa possuir um campo , sendo esse obejto rentornado caller e ao client, de maneira a aparecer no ecrã
             this.db.update({nmb: inPost.nmb}, {nmb: inPost.nmb, author: inPost.author, body: inPost.body} , {},
                 (inError: Error | null) => {
                     if (inError) {

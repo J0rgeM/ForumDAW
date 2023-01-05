@@ -1,6 +1,6 @@
 import {render} from "@testing-library/react";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Navbar from "./components/Navbar";
+import {BrowserRouter} from "react-router-dom";
+
 import React from "react";
 
 // Funcao que envolve um componente

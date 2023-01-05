@@ -15,6 +15,11 @@ function UpdatePost() {
     const [author, setAuthor] = useState("");
     const [body, setBody] = useState("");
 
+    /**
+     * enviamos um get request com o axios e esperamos pela promise
+     * da-nos um post com o numero dado
+     * @param nmb numero do post
+     */
     const getPost = async (nmb: any) => {
         try {
             const response: AxiosResponse = await axios.get<IPost[]>(
@@ -27,7 +32,14 @@ function UpdatePost() {
         }
     };
 
-    // eslint-disable-next-line
+    /**
+     * envia um put request como axios com a informacao necessaria
+     * para dar update ao post com o numero nmb
+     * faz-se preventDefault para prevenir que o browser execute a acao
+     * default do elemento
+     * @param e event relacionado com a submissao
+     * @param nmb numero do post
+     */
     const updatePost = async (e, nmb: any) => {
         e.preventDefault();
         try {
@@ -52,6 +64,11 @@ function UpdatePost() {
         getPost(params.number);
     }, []);
 
+    /**
+     * form template com botao de submissao e dois campos
+     * para preencher com o nome do autor e com o conteudo
+     * do post
+     */
     return (
         <div>
             <Navbar />

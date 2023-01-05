@@ -8,6 +8,14 @@ function AddPost() {
     const [author, setAuthor] = useState("");
     const [body, setBody] = useState("");
 
+    /**
+     * enviamos um post request com o axios com as informacoes necessarias
+     * para adicionar um post a bd e depois o utilizador e redirecionado
+     * para a pagina principal
+     * faz-se preventDefault para prevenir que o browser execute a acao
+     * default do elemento
+     * @param e event relaciondo a submissao
+     */
     const addPost = async (e) => {
         e.preventDefault();
         try {
@@ -21,17 +29,25 @@ function AddPost() {
                     },
                 }
             );
-            window.location.href = "http://localhost:3000"
+            window.location.href = "http://localhost:3000";
         } catch (error) {
             console.error(error);
         }
     };
 
+    /**
+     * form template com botao de submissao e dois campos
+     * para preencher com o nome do autor e com o conteudo
+     * do post
+     */
     return (
         <div>
             <Navbar />
             <div className="container text-center">
-                <form onSubmit={(e) => addPost(e)} className="shadow p-3 mb-5 bg-white rounded">
+                <form
+                    onSubmit={(e) => addPost(e)}
+                    className="shadow p-3 mb-5 bg-white rounded"
+                >
                     <h1 className="mt-2">Post</h1>
                     <div className="mb-3">
                         <label form="inputTitle" className="form-label">
@@ -52,9 +68,7 @@ function AddPost() {
                             placeholder="Content of your post"
                         ></input>
                     </div>
-                    <button
-                        type="submit"
-                        className="btn btn-dark">
+                    <button type="submit" className="btn btn-dark">
                         Submit
                     </button>
                 </form>

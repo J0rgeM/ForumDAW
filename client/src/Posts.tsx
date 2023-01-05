@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 // Library imports.
-//const axios = require('axios').default
-//import axios, { AxiosResponse } from "axios";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
@@ -12,6 +10,10 @@ import axios,{AxiosResponse} from "axios";
 function Posts() {
     const [posts, setPosts] = useState<IPost[]>([]);
 
+    /**
+     * enviamos um get request com o axios e esperamos pela promise
+     * buscamos os posts a bd e sorteamos o array pelo numero de cada post
+     */
     const getPost = async () => {
         try {
             const response: AxiosResponse = await axios.get<IPost[]>(
@@ -28,6 +30,12 @@ function Posts() {
         getPost();
     }, []);
 
+    /**
+     * enviamos um delete request com o axios e esperamos pela promise
+     * o post com o number dado vai ser eliminado e depois e dado reload
+     * na pagina para que se verifique a remocao do post
+     * @param number numero do post a ser eliminado
+     */
     const deletePost = async (number) => {
         try {
             const response: AxiosResponse = await axios.delete(
@@ -40,6 +48,11 @@ function Posts() {
         }
     };
 
+    /**
+     * pagina que mostra os posts, botao para adicionar um post
+     * em cada post, ha um botao para dar update ao post e outro
+     * para eliminar o post
+     */
     return (
         <div>
             <Navbar />

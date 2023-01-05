@@ -4,8 +4,6 @@ import axios, { AxiosResponse } from "axios";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
-import { Simulate } from "react-dom/test-utils";
-import error = Simulate.error;
 import { IPost } from "../../server/src/posts";
 import { useParams } from "react-router-dom";
 
@@ -15,6 +13,11 @@ function UpdatePost() {
     const [author, setAuthor] = useState("");
     const [body, setBody] = useState("");
 
+    /**
+     * enviamos um get request com o axios e esperamos pela promise
+     * buscamos o post especifico a bd
+     * @param nmb numero do post
+     */
     const getPost = async (nmb: any) => {
         try {
             const response: AxiosResponse = await axios.get<IPost[]>(
@@ -28,6 +31,15 @@ function UpdatePost() {
     };
 
     // eslint-disable-next-line
+    /**
+     * fazemos prevent default para prevenir que o browser execute a acao default
+     * do elemento selecionado
+     * enviamos um put request com o axios e esperamos pela promise
+     * vai dar update ao post na bd com os dados fornecidos, mantendo o id
+     * e o numero de post
+     * @param e evento relativo a submissao
+     * @param nmb numero do post
+     */
     const updatePost = async (e, nmb: any) => {
         e.preventDefault();
         try {
@@ -52,6 +64,11 @@ function UpdatePost() {
         getPost(params.number);
     }, []);
 
+    /**
+     * pagina usada para dar update a um post do forum
+     * form com duas caixas, uma para ditarmos o nome do nosso author e o conteudo
+     * e um botao de submissao
+     */
     return (
         <div>
             <Navbar />

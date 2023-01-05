@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer match snapshot 1`] = `
+<div>
+  <div
+    class="footer text-center fixed-bottom text-white bg-dark"
+  >
+    <div
+      class="container-fluid"
+    >
+      <div
+        class="row"
+      >
+        <p
+          class="text-center"
+        >
+          © 2023 DAW
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;

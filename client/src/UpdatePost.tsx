@@ -4,8 +4,6 @@ import axios, { AxiosResponse } from "axios";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
-import { Simulate } from "react-dom/test-utils";
-import error = Simulate.error;
 import { IPost } from "../../server/src/posts";
 import { useParams } from "react-router-dom";
 

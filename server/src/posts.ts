@@ -73,7 +73,6 @@ export class Microposts {
                     if (inError) {
                         inReject(inError);
                     } else {
-                        console.log("conseguimos");
                         inResolve();
                     }
                 }

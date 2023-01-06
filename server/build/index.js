@@ -40,10 +40,16 @@ const express_1 = __importDefault(require("express"));
 const path_1 = __importDefault(require("path"));
 const Posts = __importStar(require("./posts"));
 const app = (0, express_1.default)();
+let num = 0;
 // built-in middleware for json
 app.use(express_1.default.json());
-//serve static files
+//endpoint "/"
+//express.static() - serve para fornecer os recursos estaticos (html, images, CSS files, and JavaScript files, etc.)
+//path.join() - junta os dois argumentos e poe normal o resultado do caminho para irmos buscar um ficheiro estatico a nossa maquina
+//__dirname - e o caminho da pasta atual
 app.use("/", express_1.default.static(path_1.default.join(__dirname, "../../client/dist")));
+//esta funcao adiciona os headers necessarios a resposta
+//inNext() - passa a proxima funcao que esta em stack do middleware
 app.use(function (inRequest, inResponse, inNext) {
     inResponse.header("Access-Control-Allow-Origin", "*");
     inResponse.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
@@ -51,6 +57,8 @@ app.use(function (inRequest, inResponse, inNext) {
     inNext();
 });
 const microposts = new Posts.Microposts();
+//Registro do path e do method para o endpoint que é utilizado para obter a lista de posts.
+//app.get() - Routes HTTP GET requests to the specified path with the specified callback functions
 app.get("/", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const post = yield microposts.getPosts();
@@ -60,11 +68,13 @@ app.get("/", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0, functi
         inResponse.send("error");
     }
 }));
+//Registro do path e método para o endpoint utilizado para adicionar posts, sendo que o path é /addPost
+//app.post() function routes the HTTP POST requests to the specified path with the specified callback functions
 app.post("/addPost", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // foi criada esta variável para passar o que se recebe para argumento para IPost
         const r = {
-            nmb: (yield microposts.getPosts()).length + 1,
+            nmb: num++,
             author: inRequest.body.author,
             body: inRequest.body.body,
         };
@@ -75,16 +85,18 @@ app.post("/addPost", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0
         inResponse.send("error");
     }
 }));
+//Registro do path e do method para o endpoint que é utilizado para obter um post.
+//app.get() - Routes HTTP GET requests to the specified path with the specified callback functions
 app.get("/updatePost/:number", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const post = yield microposts.getPost(Number(inRequest.params.number));
-        console.log(post);
         inResponse.json(post);
     }
     catch (inError) {
         inResponse.send("error");
     }
 }));
+//Registro do path e do method para o endpoint que é utilizado para dar update a um post em especifico.
 app.put("/updatePost/:number", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const post = {
@@ -99,6 +111,7 @@ app.put("/updatePost/:number", (inRequest, inResponse) => __awaiter(void 0, void
         inResponse.send("error");
     }
 }));
+//Registro do path e do method para o endpoint que é utilizado para eliminar um post em especifico.
 app.delete("/:number", (inRequest, inResponse) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield microposts.deletePost(parseInt(inRequest.params.number));

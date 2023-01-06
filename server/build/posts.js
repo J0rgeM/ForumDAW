@@ -26,6 +26,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Microposts = void 0;
 const path = __importStar(require("path"));
 const Datastore = require("nedb");
+// Um objeto do tipo NeDB Datastore, que será criado, bem como o path para a posts.db.
+// A Nedb carrega o ficheiro aotumaticamente caso ainda não exista é criado.
 class Microposts {
     constructor() {
         this.db = new Datastore({
@@ -35,8 +37,10 @@ class Microposts {
     }
     getPost(postNumber) {
         return new Promise((inResolve, inReject) => {
-            this.db.find({ nmb: postNumber }, (inError, inNewDoc) => {
-                if (inError) {
+            this.db.find({ nmb: postNumber }, // é chamado dentro da promise o método find() na DataStore no qual o resultado que será retornado
+            // é o de apenas um post em posts.db
+            (inError, inNewDoc) => {
+                if (inError) { //rejeitamos a promise ou retornamos um objeto de documentos que contem os nossos objetos
                     inReject(inError);
                 }
                 else {
@@ -47,8 +51,10 @@ class Microposts {
     }
     getPosts() {
         return new Promise((inResolve, inReject) => {
-            this.db.find({}, (inError, inNewDoc) => {
-                if (inError) {
+            this.db.find({}, // é chamado dentro da promise o método find() na DataStore no qual o resultado que será retornado
+            // é o de todos e os dados em posts.db (que representa todos os posts)
+            (inError, inNewDoc) => {
+                if (inError) { //rejeitamos a promise ou retornamos um objeto de documentos que contem os nossos objetos
                     inReject(inError);
                 }
                 else {
@@ -76,7 +82,6 @@ class Microposts {
                     inReject(inError);
                 }
                 else {
-                    console.log("conseguimos");
                     inResolve();
                 }
             });
@@ -84,7 +89,9 @@ class Microposts {
     }
     deletePost(nr) {
         return new Promise((inResolve, inReject) => {
-            this.db.remove({ nmb: nr }, {}, (inError) => {
+            this.db.remove({ nmb: nr }, {}, // este método recebe o nr do post e é necessário que exista um post com esse nr
+            (inError) => {
+                // entao desde que a promise nao seja rejeitada, o post será sempre removido com sucesso
                 if (inError) {
                     inReject(inError);
                 }
